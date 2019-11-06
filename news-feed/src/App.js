@@ -12,5 +12,3 @@ class NewsFeed extends Component {
 }
  
 export default NewsFeed;
-
-hiiiii
