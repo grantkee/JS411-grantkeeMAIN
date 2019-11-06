@@ -7,7 +7,7 @@ class NewsFeed extends Component {
     this.state = {  }
   }
   render() { 
-    return (  );
+    return ( <div>Hi</div> );
   }
 }
  
