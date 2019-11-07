@@ -25,7 +25,7 @@ class NewsFeed extends Component {
   
 
   render() { 
-    return (  );
+    return ( <div>Hi</div> );
   }
 }
  
