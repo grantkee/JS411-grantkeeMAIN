@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 
 class NewsFeed extends Component {
@@ -9,7 +9,7 @@ class NewsFeed extends Component {
       author: '',
       date: '',
       errorMsg: '',
-      news: []
+      feed: []
      }
   }
 
@@ -21,6 +21,23 @@ class NewsFeed extends Component {
       [name] : result
     });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
