@@ -8,12 +8,12 @@ class NewsFeed extends Component {
       term: '',
       date: '',
       errorMsg: '',
-      feed: []
+      news: []
      };
   }
 
   onChange = (event) => {
-    const result = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    const result = (event.target.type === 'checkbox') ? event.target.checked : event.target.value;
     const name = event.target.name;
 
     this.setState({
@@ -40,14 +40,65 @@ class NewsFeed extends Component {
       fetch(`http://hn.algolia.com/api/v1/search?query=${ term }`)
       .then( res => res.json())
       .then( info => {
+        if (info.hits.length === 0) {
+          this.setState({ news: [{title: "No results match", author:null, created_at:null}]})
+        } else {
           this.setState({news: info.hits})
+        }
       })
+      .catch( error => this.errorMsg = error)
   }
 
- 
+ searchByAuthor = ( author ) => {
+   fetch(`http://hn.algolia.com/api/v1/search?tags=author_${ author }`)
+   .then( res => res.json())
+   .then( info => {
+     if (info.hits.length === 0) {
+      this.setState({ news: [{title: "No results match", author:null, created_at:null}]})
+     } else {
+       this.setState({news: info.hits})
+     }
+   })
+   .catch( error => this.errorMsg = error)
+ }
+
+ searchByDate = ( date ) => {
+   fetch(`http://hn.algolia.com/api/v1/search?tags=date_${ date }`)
+   .then( res => res.json() )
+   .then( info => {
+     if (info.hits.length === 0) {
+      this.setState({ news: [{title: "No results match", author:null, created_at:null}]})
+     } else {
+       this.setState({news: info.hits})
+     }
+   })
+   .catch( error => this.error = error)
+ }
 
   render() { 
-    return ( <div>Hi</div> );
+    return ( 
+      <div className='container'>
+        <div className="search-term">
+          <form onSubmit={this.termSubmit}>
+            <input 
+              type='text'
+              name='query'
+              placeholder='Type search term here'
+              value={this.state.term}
+              onChange={this.onChange}/>
+            <button>Search</button>
+          </form>
+        </div>
+        <ul>
+          {this.state.news.map((news) => (
+            <li key={news.objectID}>
+                <p>{news.title}</p>
+              
+            </li>
+          ))}
+        </ul>
+      </div>
+     );
   }
 }
  
