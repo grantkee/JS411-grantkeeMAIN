@@ -63,7 +63,10 @@ class NewsFeed extends Component {
  }
 
  searchByDate = ( date ) => {
-   fetch(`http://hn.algolia.com/api/v1/search?tags=date_${ date }`)
+   let myDate = date.split('-')
+   let searchDate = new Date(parseInt(myDate[2], 10), parseInt(myDate[1], 10), parseInt(myDate[0], 10) ).getTime();
+   console.log(searchDate);
+   fetch(`http://hn.algolia.com/api/v1/search_by_date?numericFilters=created_at_i=${ date }`)
    .then( res => res.json() )
    .then( info => {
      if (info.hits.length === 0) {
@@ -79,7 +82,7 @@ class NewsFeed extends Component {
     return ( 
       <div className='container'>
         <div className="search-term">
-          <form onSubmit={this.termSubmit}>
+          <form onSubmit={this.dateSubmit}>
             <input 
               type='text'
               name='query'
