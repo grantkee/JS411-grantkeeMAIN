@@ -81,11 +81,12 @@ class NewsFeed extends Component {
   render() { 
     return ( 
       <div className='container'>
+        <h2>NEWSFEED</h2>
         <div className="search-term">
-          <form onSubmit={this.dateSubmit}>
+          <form onSubmit={this.termSubmit}>
             <input 
               type='text'
-              name='query'
+              name='term'
               placeholder='Type search term here'
               value={this.state.term}
               onChange={this.onChange}/>
